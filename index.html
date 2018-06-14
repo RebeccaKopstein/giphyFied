@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <button data-pet="Dog">Dog</button>
+    <button data-pet="Cat">Cat</button>
+    <button data-pet="Hamster">Hamster</button>
+    <button data-pet="Ferret">Ferret</button>
+    <button data-pet="Fish">Fish</button>
+    <button data-pet="Guinea Pig">Guinea Pig</button>
+
+    <div id= "gifs-appear-here"> </div>
+
+    <script
+    src="https://code.jquery.com/jquery-3.3.1.min.js"integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous">
+    </script>
+    <script type="text/javascript">
+
+        $("button").on("click", function () {
+            var pet = $(this).attr("data-pet");
+
+            var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
+                pet + "&api_key=76jCiqFDtN0PjMaaVUc71yYTsBzYzr57&limit=10";
+
+            $.ajax({
+                url: queryURL,
+                method: "GET"
+            })
+
+                .then(function (response) {
+                    console.log(queryURL);
+
+                    console.log(response);
+
+                    var results = response.data;
+
+                    for (var i = 0; i < results.length; i++) {
+
+                        if (results[i].rating !== "r" && results[i].rating !== "pg-13") {
+
+
+                            var petDiv = $("<div class='item'>");
+
+                            var rating = results[i].rating;
+
+                            var p = $("<p>").text("Rating: " + rating);
+
+                            var petImage = $("<img>");
+
+                            petImage.attr("src", results[i].data.images.fixed_height.url);
+
+                            petDiv.append(p);
+                            petDiv.append(petImage);
+
+                            $("#gifs-appear-here").prepend(petDiv);
+
+
+// When the user clicks on a button,  grab 10 static, non-animated gif images from the GIPHY API and place them on the page.
+
+// When the user clicks one of the still GIPHY images, the gif should animate. If the user clicks the gif again, it should stop playing.
+
+// Under every gif, display its rating (PG, G, so on).
+//    * This data is provided by the GIPHY API.
+//    * Only once you get images displaying with button presses should you move on to the next step.
+
+// Add a form to your page takes the value from a user input box and adds it into your `topics` array. Then make a function call that takes each topic in the array remakes the buttons on the page.
+
+
+
+
+
+
+
+
+
+
+                        }
+                    }
+                });
+            // end of script
+        });
+    </script>
+
+</body>
+
+</html>
