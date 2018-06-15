@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
     <title>GiphyFied</title>
     <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
@@ -32,7 +33,7 @@
         </div>
         <div class="row">
             <div class="col-md-12" "buttons">
-                <div id="buttons-view"></div>
+                <div id="buttons-view">
 
                 <button type="button" class="btn btn-secondary btn-lg" data-pet="Dog">Dog</button>
                 <button type="button" class="btn btn-secondary btn-lg" data-pet="Cat">Cat</button>
@@ -44,13 +45,14 @@
                 <button type="button" class="btn btn-secondary btn-lg" data-pet="Bunny">Bunny</button>
                 <button type="button" class="btn btn-secondary btn-lg" data-pet="Turtle">Turtle</button>
                 <button type="button" class="btn btn-secondary btn-lg" data-pet="Sugar Glider">Sugar Glider</button>
+            </div>
                 <br>
                 <form id="pet-form">
                     <label for="pet-input">Add your favorite!</label>
                     <input type="text" id="pet-input">
                     <br>
 
-                    <input id="add-pet" type="button" class="btn btn-secondary btn-lg" value="Submit"></input>
+                    <input id="add-petName" type="button" class="btn btn-secondary btn-lg" value="Submit"></input>
                 </form>
             </div>
         </div>
@@ -71,14 +73,14 @@
             function renderButtons() {
                 $("#buttons-view").empty();
 
-                for (var i = 0; i < petName.length; i++) {
-                    var a = $("<button>");
+                for (var i = 0; i < favPet.length; i++) {
+                    var a = $("<button type='button' class='btn btn-secondary btn-lg'>");
 
                     a.addClass("petName");
 
-                    a.attr("data-name", petName[i]);
+                    a.attr("data-name", favPet[i]);
 
-                    a.text(petName[i]);
+                    a.text(favPet[i]);
 
                     $("#buttons-view").append(a);
                 }
@@ -89,7 +91,7 @@
 
                 var petName = $("#pet-input").val().trim();
 
-                petName.push(petName);
+                favPet.push(petName);
 
                 renderButtons();
             });
@@ -139,16 +141,13 @@
 
                                 $("#gifs-appear-here").prepend(petDiv);
 
-
-                                // Add a form to your page takes the value from a user input box and adds it into your `topics` array. Then make a function call that takes each topic in the array remakes the buttons on the page.
-
                             }
                         }
                     });
                 $(document).on("click", ".petName", alertPetName);
 
                 renderButtons();
-                // end of script
+               
             });
             $(document).on("click", ".pets", function () {
                 console.log("thisIsWorking");
@@ -163,6 +162,72 @@
             });
         </script>
     </div>
+
+    <title>Document</title>
+<!-- </head><body>
+    <button data-pet="Dog">Dog</button>
+    <button data-pet="Cat">Cat</button>
+    <button data-pet="Hamster">Hamster</button>
+    <button data-pet="Ferret">Ferret</button>
+    <button data-pet="Fish">Fish</button>
+    <button data-pet="Guinea Pig">Guinea Pig</button>
+
+    <div id= "gifs-appear-here"> </div> -->
+
+
+
+    <script
+    src="https://code.jquery.com/jquery-3.3.1.min.js"integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous">
+    </script>
+    <!-- <script type="text/javascript">
+
+        $("button").on("click", function () {
+            var pet = $(this).attr("data-pet");
+
+            var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
+                pet + "&api_key=76jCiqFDtN0PjMaaVUc71yYTsBzYzr57&limit=10";
+
+            $.ajax({
+                url: queryURL,
+                method: "GET"
+            })
+
+                .then(function (response) {
+                    console.log(queryURL);
+
+                    console.log(response);
+
+                    var results = response.data;
+
+                    for (var i = 0; i < results.length; i++) {
+
+                        if (results[i].rating !== "r" && results[i].rating !== "pg-13") {
+
+
+                            var petDiv = $("<div class='item'>");
+
+                            var rating = results[i].rating;
+
+                            var p = $("<p>").text("Rating: " + rating);
+
+                            var petImage = $("<img>");
+
+                            petImage.attr("src", results[i].data.images.fixed_height.url);
+
+                            petDiv.append(p);
+                            petDiv.append(petImage);
+
+                            $("#gifs-appear-here").prepend(petDiv);
+
+                        }
+                    }
+                });
+           
+        });
+    </script> -->
+
+
 </body>
 
 </html>
