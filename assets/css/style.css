@@ -1,0 +1,32 @@
+body {
+    background-image: url("../images/qbkls.png");
+}
+
+h1 {
+    background-color: aqua;
+    text-align: center;
+    color: rgb(110, 110, 185);
+    background-blend-mode: color-burn;
+    font-family: 'Ruslan Display', cursive;
+    font-size: 50px;
+    /* margin: 200px;
+    padding: 10px; */
+}
+
+p {
+    text-align: center;
+}
+
+.pets {
+    border: 1px solid rgb(12, 12, 12);
+    border-radius: 4px;
+    padding: 5px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 33.3%;
+}
+    
+#pet-form{
+    text-align: center;
+}

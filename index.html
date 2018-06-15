@@ -5,90 +5,164 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>GiphyFied</title>
+    <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Ruslan+Display" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+        crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+        crossorigin="anonymous"></script>
 </head>
 
 <body>
-    <button data-pet="Dog">Dog</button>
-    <button data-pet="Cat">Cat</button>
-    <button data-pet="Hamster">Hamster</button>
-    <button data-pet="Ferret">Ferret</button>
-    <button data-pet="Fish">Fish</button>
-    <button data-pet="Guinea Pig">Guinea Pig</button>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2">
+            </div>
+            <div class="col-md-8">
+                <h1>GiphiFY your favorite Pets!</h1>
+            </div>
+            <div class="col-md-2">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12" "buttons">
+                <div id="buttons-view"></div>
 
-    <div id= "gifs-appear-here"> </div>
+                <button type="button" class="btn btn-secondary btn-lg" data-pet="Dog">Dog</button>
+                <button type="button" class="btn btn-secondary btn-lg" data-pet="Cat">Cat</button>
+                <button type="button" class="btn btn-secondary btn-lg" data-pet="Hamster">Hamster</button>
+                <button type="button" class="btn btn-secondary btn-lg" data-pet="Ferret">Ferret</button>
+                <button type="button" class="btn btn-secondary btn-lg" data-pet="Fish">Fish</button>
+                <button type="button" class="btn btn-secondary btn-lg" data-pet="Guinea Pig">Guinea Pig</button>
+                <button type="button" class="btn btn-secondary btn-lg" data-pet="Chicken">Chicken</button>
+                <button type="button" class="btn btn-secondary btn-lg" data-pet="Bunny">Bunny</button>
+                <button type="button" class="btn btn-secondary btn-lg" data-pet="Turtle">Turtle</button>
+                <button type="button" class="btn btn-secondary btn-lg" data-pet="Sugar Glider">Sugar Glider</button>
+                <br>
+                <form id="pet-form">
+                    <label for="pet-input">Add your favorite!</label>
+                    <input type="text" id="pet-input">
+                    <br>
 
-    <script
-    src="https://code.jquery.com/jquery-3.3.1.min.js"integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-    crossorigin="anonymous">
-    </script>
-    <script type="text/javascript">
+                    <input id="add-pet" type="button" class="btn btn-secondary btn-lg" value="Submit"></input>
+                </form>
+            </div>
+        </div>
 
-        $("button").on("click", function () {
-            var pet = $(this).attr("data-pet");
+        <div id="gifs-appear-here"> </div>
 
-            var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
-                pet + "&api_key=76jCiqFDtN0PjMaaVUc71yYTsBzYzr57&limit=10";
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous">
+            </script>
+        <script type="text/javascript">
 
-            $.ajax({
-                url: queryURL,
-                method: "GET"
-            })
+            var favPet = ["Dog", "Cat", "Hamster", "Ferret", "Fish", "Guinea Pig", "Chicken", "Bunny", "Turtle"];
+            function alertPetName() {
+                var petName = $(this).attr("data-name")
 
-                .then(function (response) {
-                    console.log(queryURL);
+                alert(petName);
+            }
+            function renderButtons() {
+                $("#buttons-view").empty();
 
-                    console.log(response);
+                for (var i = 0; i < petName.length; i++) {
+                    var a = $("<button>");
 
-                    var results = response.data;
+                    a.addClass("petName");
 
-                    for (var i = 0; i < results.length; i++) {
+                    a.attr("data-name", petName[i]);
 
-                        if (results[i].rating !== "r" && results[i].rating !== "pg-13") {
+                    a.text(petName[i]);
 
+                    $("#buttons-view").append(a);
+                }
+            }
 
-                            var petDiv = $("<div class='item'>");
+            $("#add-petName").on("click", function (event) {
+                event.preventDefault();
 
-                            var rating = results[i].rating;
+                var petName = $("#pet-input").val().trim();
 
-                            var p = $("<p>").text("Rating: " + rating);
+                petName.push(petName);
 
-                            var petImage = $("<img>");
-
-                            petImage.attr("src", results[i].data.images.fixed_height.url);
-
-                            petDiv.append(p);
-                            petDiv.append(petImage);
-
-                            $("#gifs-appear-here").prepend(petDiv);
-
-
-// When the user clicks on a button,  grab 10 static, non-animated gif images from the GIPHY API and place them on the page.
-
-// When the user clicks one of the still GIPHY images, the gif should animate. If the user clicks the gif again, it should stop playing.
-
-// Under every gif, display its rating (PG, G, so on).
-//    * This data is provided by the GIPHY API.
-//    * Only once you get images displaying with button presses should you move on to the next step.
-
-// Add a form to your page takes the value from a user input box and adds it into your `topics` array. Then make a function call that takes each topic in the array remakes the buttons on the page.
-
-
-
-
-
+                renderButtons();
+            });
 
 
+            $("button").on("click", function () {
+                var pet = $(this).attr("data-pet");
+
+                var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
+                    pet + "&api_key=76jCiqFDtN0PjMaaVUc71yYTsBzYzr57&limit=10";
+
+                $.ajax({
+                    url: queryURL,
+                    method: "GET"
+                })
+
+                    .then(function (response) {
+                        console.log(queryURL);
+
+                        console.log(response);
+
+                        var results = response.data;
+
+                        for (var i = 0; i < results.length; i++) {
+
+                            if (results[i].rating !== "r" && results[i].rating !== "pg-13") {
 
 
+                                var petDiv = $("<div class='item'>");
 
+                                var rating = results[i].rating;
+
+                                var p = $("<p>").text("Rating: " + rating);
+
+                                var petImage = $("<img class = 'pets'>");
+
+                                petImage.attr("src", results[i].images.fixed_height_still.url);
+                                petImage.attr("data-animate", results[i].images.fixed_height.url);
+                                petImage.attr("data-still", results[i].images.fixed_height_still.url);
+
+                                petImage.attr("data-state", "still");
+
+
+                                petDiv.append(p);
+                                petDiv.append(petImage);
+
+
+                                $("#gifs-appear-here").prepend(petDiv);
+
+
+                                // Add a form to your page takes the value from a user input box and adds it into your `topics` array. Then make a function call that takes each topic in the array remakes the buttons on the page.
+
+                            }
                         }
-                    }
-                });
-            // end of script
-        });
-    </script>
+                    });
+                $(document).on("click", ".petName", alertPetName);
 
+                renderButtons();
+                // end of script
+            });
+            $(document).on("click", ".pets", function () {
+                console.log("thisIsWorking");
+                var state = $(this).attr("data-state");
+                if (state === "still") {
+                    $(this).attr("src", $(this).attr("data-animate"));
+                    $(this).attr("data-state", "animate");
+                } else {
+                    $(this).attr("src", $(this).attr("data-still"));
+                    $(this).attr("data-state", "still");
+                }
+            });
+        </script>
+    </div>
 </body>
 
 </html>
